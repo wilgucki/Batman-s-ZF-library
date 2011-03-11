@@ -120,15 +120,15 @@ class Batman_Notification_Sender_Mail extends Batman_Notification_Sender_Abstrac
     public function send()
     {
         if($this->getTo() === null) {
-            throw new Batman_Notification_Exception('Invalid e-mail recipient');
+            throw new Batman_Notification_Exception('Invalid mail recipient');
         }
 
         if($this->getFrom() === null) {
-            throw new Batman_Notification_Exception('Invalid e-mail sender');
+            throw new Batman_Notification_Exception('Invalid mail sender');
         }
 
         if($this->getSubject() === null) {
-            throw new Batman_Notification_Exception('Invalid e-mail subject');
+            throw new Batman_Notification_Exception('Invalid mail subject');
         }
 
         $body = $this->_render();
