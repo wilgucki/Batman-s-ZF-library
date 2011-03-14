@@ -8,7 +8,7 @@
  * @author Maciej Wilgucki
  * @copyright (c) 2011 Maciej Wilgucki <http://blog.wilgucki.pl>
  * @license http://blog.wilgucki.pl/license/new-bsd New BSD License
- *
+ * @version 0.1.1
  */
 abstract class Batman_Notification_Sender_Abstract
 {
@@ -72,7 +72,7 @@ abstract class Batman_Notification_Sender_Abstract
      *
      * @throws Batman_Notification_Exception
      * @param array|null $options
-     * @return void
+     * @return Batman_Notification_Sender_Abstract
      */
     public function setOptions(array $options = null)
     {
@@ -93,28 +93,32 @@ abstract class Batman_Notification_Sender_Abstract
 
             $this->$method($value);
         }
+
+        return $this;
     }
 
     /**
      * Set options from Zend_Config object
      *
      * @param Zend_Config $config
-     * @return void
+     * @return Batman_Notification_Sender_Abstract
      */
     public function setConfig(Zend_Config $config)
     {
         $this->setOptions($config->toArray());
+        return $this;
     }
 
     /**
      * Set template file name
      *
      * @param string $template
-     * @return void
+     * @return Batman_Notification_Sender_Abstract
      */
     public function setTemplateName($template)
     {
         $this->_templateName = $template;
+        return $this;
     }
 
     /**
@@ -131,11 +135,12 @@ abstract class Batman_Notification_Sender_Abstract
      * Set template path
      *
      * @param string $path
-     * @return void
+     * @return Batman_Notification_Sender_Abstract
      */
     public function setTemplatePath($path)
     {
         $this->_templatePath = $path;
+        return $this;
     }
 
     /**
@@ -151,22 +156,24 @@ abstract class Batman_Notification_Sender_Abstract
     /**
      * Assign Zend_View variables (@see Zend_View_Interface)
      * @param array $data
-     * @return void
+     * @return Batman_Notification_Sender_Abstract
      */
     public function addTemplateData(array $data)
     {
         $this->getView()->assign($data);
+        return $this;
     }
 
     /**
      * Set custom Zend_View object (@see Zend_View_Interface)
      * 
      * @param Zend_View_Interface $view
-     * @return void
+     * @return Batman_Notification_Sender_Abstract
      */
     public function setView(Zend_View_Interface $view)
     {
         $this->_view = $view;
+        return $this;
     }
 
     /**

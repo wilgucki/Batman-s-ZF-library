@@ -7,7 +7,7 @@
  * @author Maciej Wilgucki
  * @copyright (c) 2011 Maciej Wilgucki <http://blog.wilgucki.pl>
  * @license http://blog.wilgucki.pl/license/new-bsd New BSD License
- *
+ * @version 0.1.1
  */
 class Batman_Notification
 {

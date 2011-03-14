@@ -8,7 +8,7 @@
  * @author Maciej Wilgucki
  * @copyright (c) 2011 Maciej Wilgucki <http://blog.wilgucki.pl>
  * @license http://blog.wilgucki.pl/license/new-bsd New BSD License
- *
+ * @version 0.1.1
  */
 class Batman_Notification_Sender_Mail extends Batman_Notification_Sender_Abstract
 {
@@ -50,13 +50,14 @@ class Batman_Notification_Sender_Mail extends Batman_Notification_Sender_Abstrac
 
     /**
      * Set mail recipient
-     *
+     * 
      * @param string $to
-     * @return void
+     * @return Batman_Notification_Sender_Mail
      */
     public function setTo($to)
     {
         $this->_to = $to;
+        return $this;
     }
 
     /**
@@ -73,11 +74,12 @@ class Batman_Notification_Sender_Mail extends Batman_Notification_Sender_Abstrac
      * Set sender's e-mail
      *
      * @param string $from
-     * @return void
+     * @return Batman_Notification_Sender_Mail
      */
     public function setFrom($from)
     {
         $this->_from = $from;
+        return $this;
     }
 
     /**
@@ -94,11 +96,12 @@ class Batman_Notification_Sender_Mail extends Batman_Notification_Sender_Abstrac
      * Set e-mail subject
      *
      * @param string $subject
-     * @return void
+     * @return Batman_Notification_Sender_Mail
      */
     public function setSubject($subject)
     {
         $this->_subject = $subject;
+        return $this;
     }
 
     /**
