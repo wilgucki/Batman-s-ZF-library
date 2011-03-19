@@ -7,25 +7,68 @@
  * @author Maciej Wilgucki
  * @copyright (c) 2011 Maciej Wilgucki <http://blog.wilgucki.pl>
  * @license http://blog.wilgucki.pl/license/new-bsd New BSD License
- * @version 0.1.1
+ * @version 0.2
  */
 class Batman_Notification
 {
     /**
-     * Factory
-     *
-     * @static
-     * @param string $type
-     * @param mixed $options
-     * @return Batman_Notification_Sender_Abstract
+     * @var Batman_Notification_Sender_Abstract
      */
-    public static function factory($type, $options = null)
+    protected $_sender = null;
+    
+    /**
+     * @var Batman_Notification_DataTemplate_Abstract
+     */
+    protected $_dataTemplate = null;
+    
+    public function __construct($sender = null, $dataTemplate = null)
     {
-        $class = 'Batman_Notification_Sender_' . ucfirst($type);
-        if(!class_exists($class)) {
-            throw new Batman_Notification_Exception('Invalid notification type');
+        if($sender !== null) {
+            $this->setSender($sender);
         }
-
-        return new $class($options);
+        
+        if($dataTemplate !== null) {
+            $this->setDataTemplate($dataTemplate);
+        }
+    }
+    
+    public function setSender($sender)
+    {
+        if(!$sender instanceof Batman_Notification_Sender_Interface) {
+            if(!class_exists($sender)) {
+                throw new Batman_Notification_Exception('Sender class ' . $sender . ' does not exists');
+            }
+            $sender = new $sender;
+        }
+        
+        $this->_sender = $sender;
+    }
+    
+    public function getSender()
+    {
+        return $this->_sender;
+    }
+    
+    public function setDataTemplate($dataTemplate)
+    {
+        if(!$dataTemplate instanceof Batman_Notification_DataTemplate_Interface) {
+            if(!class_exists($dataTemplate)) {
+                throw new Batman_Notification_Exception('DataTemplate class ' . $dataTemplate . ' does not exists');
+            }
+            $dataTemplate = new $dataTemplate;
+        }
+        
+        $this->_dataTemplate = $dataTemplate;
+    }
+    
+    public function getDataTemplate()
+    {
+        return $this->_dataTemplate;
+    }
+    
+    public function send()
+    {
+        $this->_sender->setDataTemplate($this->_dataTemplate);
+        $this->_sender->send();
     }
 }
