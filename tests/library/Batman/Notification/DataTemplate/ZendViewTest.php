@@ -36,4 +36,39 @@ class Batman_Notification_DataTemplate_ZendViewTest extends PHPUnit_Framework_Te
         $dataTemplate->setTemplatePath('template_path');
         $this->assertTrue('string' == gettype($dataTemplate->getTemplatePath()));
     }
+    
+    public function testRenderWithValidData()
+    {
+        $dataTemplate = new Batman_Notification_DataTemplate_ZendView();
+        $dataTemplate->setTemplateName('test-template.phtml');
+        $dataTemplate->setTemplatePath(APPLICATION_PATH . '/../tests/library/Batman/_files');
+        $out = $dataTemplate->render();
+        $this->assertTrue('string' === gettype($out));
+    }
+    
+    public function testRenderWithNoTemplateName()
+    {
+        $dataTemplate = new Batman_Notification_DataTemplate_ZendView();
+        $dataTemplate->setTemplatePath(APPLICATION_PATH . '/../tests/library/Batman/_files');
+        try {
+            $dataTemplate->render();
+        } catch(Exception $e) {
+            return;
+        }
+
+        $this->fail('Exception hasn\'t been raised');
+    }
+    
+    public function testRenderWithNoTemplatePath()
+    {
+        $dataTemplate = new Batman_Notification_DataTemplate_ZendView();
+        $dataTemplate->setTemplateName('test-template.phtml');
+        try {
+            $dataTemplate->render();
+        } catch(Exception $e) {
+            return;
+        }
+
+        $this->fail('Exception hasn\'t been raised');
+    }
 }

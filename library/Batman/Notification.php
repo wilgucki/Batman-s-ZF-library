@@ -23,13 +23,8 @@ class Batman_Notification
     
     public function __construct($sender = null, $dataTemplate = null)
     {
-        if($sender !== null) {
-            $this->setSender($sender);
-        }
-        
-        if($dataTemplate !== null) {
-            $this->setDataTemplate($dataTemplate);
-        }
+        if($sender !== null) $this->setSender($sender);
+        if($dataTemplate !== null) $this->setDataTemplate($dataTemplate);
     }
     
     public function setSender($sender)
