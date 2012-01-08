@@ -1,4 +1,5 @@
+.idea
 .zfproject.xml
-application
 docs
-public
+library/Zend
+data
