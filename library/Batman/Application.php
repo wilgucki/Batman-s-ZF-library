@@ -7,6 +7,30 @@ class Batman_Application extends Zend_Application
     private $_cache = null;
 
     /**
+     * @var null|string
+     */
+    private $_configFile = null;
+
+    /**
+     * @param string $file
+     */
+    public function setConfigFile($file)
+    {
+        $this->_configFile = $file;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getConfigFile()
+    {
+        if($this->_configFile === null) {
+            $this->_configFile = APPLICATION_PATH . '/configs/application.ini';
+        }
+        return $this->_configFile;
+    }
+
+    /**
      * @param Zend_Cache_Core $cache
      */
     public function setCache(Zend_Cache_Core $cache)
@@ -24,7 +48,7 @@ class Batman_Application extends Zend_Application
                 'File',
                 'File',
                 array(
-                    'master_files' => array(APPLICATION_PATH . '/configs/application.ini'),
+                    'master_files' => array($this->getConfigFile()),
                     'automatic_serialization' => true,
                     'lifetime' => null
                 ),
@@ -38,6 +62,10 @@ class Batman_Application extends Zend_Application
 
     protected function _loadConfig($file)
     {
+        if($this->_configFile === null) {
+            $this->setConfigFile($file);
+        }
+
         $cache = $this->getCache();
         $config = $cache->load('config_cache');
         if(!$config) {
